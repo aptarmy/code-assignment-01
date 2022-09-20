@@ -1,0 +1,46 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: postgres
+    user: "${UID}:${GID}"
+    restart: always
+    environment:
+      POSTGRES_USERNAME: "postgres"
+      POSTGRES_PASSWORD: "mh80k@49VAo5Or0rXMX!%zZG"
+    volumes:
+      - "./postgres_data:/var/lib/postgresql/data"
+    ports:
+      - "5432:5432"
+
+  adminer:
+    image: adminer
+    user: "${UID}:${GID}"
+    restart: always
+    ports:
+      - 8080:8080
+
+  backend:
+    user: "${UID}:${GID}"
+    build:
+      context: "./express"
+      dockerfile: "Dockerfile"
+    volumes:
+      - "./express:/app"
+      - "/app/node_modules"
+    command: "npm run dev"
+    ports:
+      - "3001:3000"
+
+  frontend:
+    user: "${UID}:${GID}"
+    build:
+      context: "./react"
+      dockerfile: "Dockerfile"
+    volumes:
+      - "./react:/app"
+      - "/app/node_modules"
+    command: "npm run start"
+    ports:
+      - "3002:3000"
