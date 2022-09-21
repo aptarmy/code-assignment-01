@@ -60,6 +60,7 @@ export default function TaskFormModal({ onChange }) {
     <Button key="random" onClick={randomTask}>Random</Button>,
     <Button key="cancel" onClick={handleModalCancel}>Cancel</Button>,
     <Popconfirm
+      key="submit"
       title="Are you sure to submit the form?"
       onConfirm={handleModalOk}
       okText="Yes"

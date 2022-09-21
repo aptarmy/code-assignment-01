@@ -20,7 +20,7 @@ export default function TaskList() {
         loading={isLoading}
         itemLayout="horizontal"
         dataSource={tasks || []}
-        renderItem={task => <TaskItem task={task} onChange={e => mutate()} />}
+        renderItem={task => <TaskItem key={task.TaskID} task={task} onChange={e => mutate()} />}
       />
       <TaskModal onChange={e => mutate()} />
     </>
