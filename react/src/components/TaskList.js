@@ -10,7 +10,7 @@ export default function TaskList() {
 
   const { data: tasks, error, mutate } = useSWR('/api/tasks', fetcher);
   const isLoading = !tasks && !error;
-  const errorMsg = error && (error.response?.dadta?.message || error.message);
+  const errorMsg = error && (error.response?.data?.message || error.message);
 
   return (
     <>

@@ -88,7 +88,7 @@ taskRouter.delete('/:taskId', async (req, res) => {
   if(isNaN(parseInt(taskId))) { return httpResponse.badRequest({ res, message: 'taskId is invalid' }) }
 
   try {
-    Task.destroy({ where: { TaskID: taskId } })
+    await Task.destroy({ where: { TaskID: taskId } })
   } catch(err) {
     console.error('Error while deleting Task:', err)
     return httpResponse.serverError({ res, message: 'Error while deleting Task' })
