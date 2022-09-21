@@ -2,7 +2,7 @@ const { Category } = require('../models')
 
 module.exports.validator = async ({ taskName, categoryId, isCompleted }) => {
   // check for input errors
-  if(typeof(taskName) !== "string" || !taskName.trim() || !taskName.replace(/[^a-zA-Z0-9\s]+/g, "").trim()) {
+  if(typeof(taskName) !== "string" || !taskName.trim() || !taskName.replace(/[^\x20-\x7E]/g, "").trim()) {
     const err = new Error('taskName is invalid')
     err.status = 400
     throw err
@@ -35,8 +35,8 @@ module.exports.validator = async ({ taskName, categoryId, isCompleted }) => {
     throw err
   }
 
-  // filter out unwanted characters
-  taskName = taskName.replace(/[^a-zA-Z0-9\s]+/g, "").trim()
+  // filter out unprintable characters
+  taskName = taskName.replace(/[^\x20-\x7E]/g, "").trim()
 
   return { taskName, categoryId, isCompleted }
 }

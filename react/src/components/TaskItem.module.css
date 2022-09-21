@@ -1,0 +1,39 @@
+.listItemMeta {
+  align-items: center !important;
+}
+.listItemMeta :global(.ant-list-item-meta-title) {
+  margin-bottom: 0 !important;
+}
+.checkIcon {
+  font-size: 2em;
+  color: #16ce16 !important;
+  cursor: pointer;
+  transition: background-color 200ms ease-in-out;
+}
+.checkIcon:hover {
+  color: #11a811 !important;
+}
+.notCheckIcon {
+  width: 2em;
+  height: 2em;
+  border: 1px solid black;
+  border-radius: 100%;
+  cursor: pointer;
+  transition: background-color 200ms ease-in-out;
+}
+.notCheckIcon:hover {
+  background-color: #d1d1d1;
+}
+.categoryTitle {
+  font-weight: lighter;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  margin-bottom: 0;
+  color: rgba(0,0,0, 0.45);
+}
+.taskName {
+  font-weight: lighter;
+  font-size: 1.7em;
+  line-height: 100%;
+  color: black;
+}
