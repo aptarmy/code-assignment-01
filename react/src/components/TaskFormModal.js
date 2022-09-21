@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Form, Input, Button, Select, Modal, message, Alert } from 'antd';
+import { Form, Input, Button, Select, Modal, message, Alert, Popconfirm } from 'antd';
 import useSWR from 'swr';
 
 import taskEvents from '../helpers/taskEvents';
@@ -59,7 +59,14 @@ export default function TaskFormModal({ onChange }) {
   const modalFooter = useMemo(() => ([
     <Button key="random" onClick={randomTask}>Random</Button>,
     <Button key="cancel" onClick={handleModalCancel}>Cancel</Button>,
-    <Button key="submit" type="primary" onClick={handleModalOk}>Submit</Button>,
+    <Popconfirm
+      title="Are you sure to submit the form?"
+      onConfirm={handleModalOk}
+      okText="Yes"
+      cancelText="No"
+    >
+      <Button key="submit" type="primary">Submit</Button>
+    </Popconfirm>,
   ]), [ randomTask, handleModalOk, handleModalCancel ]);
 
   return (
@@ -86,7 +93,15 @@ export default function TaskFormModal({ onChange }) {
           label="Category"
           name="categoryId"
           disabled={!categories}
-          rules={[{ required: true, message: 'Please select category' }]}
+          rules={[
+            { validator: async (_, categoryId) => {
+                if (typeof(categoryId) !== "number") {
+                  return Promise.reject(new Error('Please select category'));
+                }
+                return Promise.resolve();
+              }
+            }
+          ]}
           colon={false}
           
         >
