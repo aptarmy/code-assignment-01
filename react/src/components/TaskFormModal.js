@@ -41,7 +41,7 @@ export default function TaskFormModal({ onChange }) {
       dispatch(closeModal());
     }).catch(err => {
       console.error('Error while creating new task using API', err);
-      message.error('Error occured: ' + err.response?.data?.message || err.message);
+      message.error('Error occured: ' + (err.response?.data?.message || err.message));
     });
   };
 
