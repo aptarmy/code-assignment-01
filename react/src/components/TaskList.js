@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import useSWR from 'swr';
 import { List, Alert } from 'antd';
 
@@ -12,6 +13,8 @@ export default function TaskList() {
   const isLoading = !tasks && !error;
   const errorMsg = error && (error.response?.data?.message || error.message);
 
+  const refetchData = useCallback(e => mutate(), [ mutate ])
+
   return (
     <>
       {errorMsg && <Alert message={`Error occured: ${errorMsg}`} type="error" showIcon closable />}
@@ -20,9 +23,9 @@ export default function TaskList() {
         loading={isLoading}
         itemLayout="horizontal"
         dataSource={tasks || []}
-        renderItem={task => <TaskItem key={task.TaskID} task={task} onChange={e => mutate()} />}
+        renderItem={task => <TaskItem key={task.TaskID} task={task} onChange={refetchData} />}
       />
-      <TaskModal onChange={e => mutate()} />
+      <TaskModal onChange={refetchData} />
     </>
   )
 }
