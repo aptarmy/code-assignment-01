@@ -37,7 +37,7 @@ export default function TaskFormModal({ onChange }) {
     const apiCaller = task ? editTask : createTask;
     const data = task ? { taskId: task.TaskID, payload: { ...formData, isCompleted: task.TaskCompleted } } : { payload: formData };
     apiCaller(data).then(() => {
-      onChange(taskEvents.CREATED);
+      onChange(task ? taskEvents.UPDATED : taskEvents.CREATED);
       dispatch(closeModal());
     }).catch(err => {
       console.error('Error while creating new task using API', err);
